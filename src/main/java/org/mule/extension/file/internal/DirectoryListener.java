@@ -253,8 +253,11 @@ public class DirectoryListener extends Source<InputStream, ListenerFileAttribute
 
         WatchKey key;
         try {
+          LOGGER.warn("BEFORE TAKE");
           key = watcher.take();
+          LOGGER.warn("GOT KEY-----------------" + key.toString());
         } catch (InterruptedException | ClosedWatchServiceException e) {
+          LOGGER.warn("INTERRUPTED TAKE");
           return;
         }
 
