@@ -53,7 +53,6 @@ public class DirectoryListenerTestCase extends AbstractMuleContextTestCase {
   @Override
   protected void doSetUp() throws Exception {
     directoryListener = new DirectoryListener();
-    directoryListener.setFlowConstruct(flowConstruct);
     directoryListener.setClusterService(clusterService);
 
     when(mockMuleContext.isPrimaryPollingInstance()).thenReturn(false);
