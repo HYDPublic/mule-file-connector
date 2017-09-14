@@ -22,15 +22,15 @@ import static org.mule.extension.file.common.api.exceptions.FileError.ILLEGAL_PA
 
 import org.mule.extension.file.common.api.FileWriteMode;
 import org.mule.extension.file.common.api.exceptions.FileAlreadyExistsException;
+import org.mule.extension.file.common.api.exceptions.FileError;
 import org.mule.extension.file.common.api.exceptions.IllegalPathException;
 import org.mule.runtime.core.api.event.BaseEvent;
-
-import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
 
 import io.qameta.allure.Feature;
+import org.junit.Test;
 
 @Feature(FILE_EXTENSION)
 public class FileWriteTestCase extends FileConnectorTestCase {
@@ -120,6 +120,12 @@ public class FileWriteTestCase extends FileConnectorTestCase {
     BaseEvent event = flowRunner("readAndWrite").withVariable("path", file.getAbsolutePath()).run();
 
     assertThat(event.getMessage().getPayload().getValue(), equalTo(HELLO_WORLD));
+  }
+
+  @Test
+  public void writeOnDirectoryPath() throws Exception {
+    expectedError.expectError("FILE", FileError.ILLEGAL_PATH, IllegalPathException.class, "because it is a Directory");
+    flowRunner("writeStaticContent").withVariable("mode", "OVERWRITE").withVariable("path", temporaryFolder.newFolder().getPath()).run();
   }
 
   @Test

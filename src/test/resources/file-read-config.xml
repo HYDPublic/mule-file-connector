@@ -34,5 +34,10 @@
         <file:read config-ref="file" path="#[vars.path]" outputMimeType="test/test"/>
         <object-to-string-transformer />
     </flow>
+
+    <flow name="readWithInvalidMimeType">
+        <file:read config-ref="file" path="#[vars.path]" outputMimeType="test.fdsjf hdskj432"/>
+        <object-to-string-transformer />
+    </flow>
     
 </mule>

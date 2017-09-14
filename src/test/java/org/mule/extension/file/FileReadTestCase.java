@@ -35,10 +35,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import io.qameta.allure.Feature;
-import org.hamcrest.Matchers;
-import org.hamcrest.core.Is;
 import org.junit.Test;
-import org.mockito.internal.matchers.GreaterOrEqual;
 
 @Feature(FILE_EXTENSION)
 public class FileReadTestCase extends FileConnectorTestCase {
@@ -147,6 +144,13 @@ public class FileReadTestCase extends FileConnectorTestCase {
     assertThat(filePayload.isDirectory(), is(false));
     assertThat(filePayload.isSymbolicLink(), is(false));
     assertThat(filePayload.isRegularFile(), is(true));
+  }
+
+  @Test
+  public void readWithInvalidMimeType() throws Exception {
+    flowRunner("readWithInvalidMimeType").withVariable("path", HELLO_PATH).run();
+//    assertThat(event.getMessage().getPayload().getDataType().getMediaType().getPrimaryType(), equalTo("test"));
+//    assertThat(event.getMessage().getPayload().getDataType().getMediaType().getSubType(), equalTo("test"));
   }
 
   private Message readWithLock() throws Exception {
